@@ -1,10 +1,13 @@
 build:
-	docker build -t unific .
+	docker build -t karnauskas/unifi-controller-docker .
 
 run:
-	docker run --rm -p 8443:8443 unific:latest
+	docker run --rm -p 8443:8443 karnauskas/unifi-controller-docker
 
 shell:
-	docker run --rm -ti -p 8443:8443 -u 0 -v `pwd`:/app/:z unific:latest /bin/bash
+	docker run --rm -ti -p 8443:8443 -u 0 -v `pwd`:/app/:z karnauskas/unifi-controller-docker /bin/bash
 
-.PHONY: build run shell
+push:
+	docker push karnauskas/unifi-controller-docker:latest
+
+.PHONY: build run shell push

@@ -7,8 +7,7 @@ RUN apt-get update && \
         mongodb-server \
         openjdk-8-jre-headless \
         wget \
-        && \
-        apt-get clean all
+        && apt-get clean all
 
 RUN cd /tmp && \
         wget http://dl.ubnt.com/unifi/5.6.26/unifi_sysvinit_all.deb && \
