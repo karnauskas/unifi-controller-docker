@@ -1,4 +1,6 @@
+ARG UNIFY_VERSION=5.10.25
 FROM ubuntu:16.04
+ARG UNIFY_VERSION
 
 RUN apt-get update && \
         apt-get install -y \
@@ -6,13 +8,13 @@ RUN apt-get update && \
         jsvc \
         mongodb-server \
         openjdk-8-jre-headless \
-        wget \
+        curl \
         && apt-get clean all
 
 RUN cd /tmp && \
-        wget http://dl.ubnt.com/unifi/5.6.26/unifi_sysvinit_all.deb && \
-        dpkg -i unifi_sysvinit_all.deb && \
-        rm unifi_sysvinit_all.deb
+        curl -o /tmp/unify.deb https://dl.ui.com/unifi/${UNIFY_VERSION}/unifi_sysvinit_all.deb && \
+        dpkg -i /tmp/unify.deb && \
+        rm /tmp/unify.deb
 
 VOLUME /var/lib/unifi
 
@@ -24,7 +26,7 @@ RUN ln -s /var/run/unifi /usr/lib/unifi/run
 
 ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 
-USER unifi 
+USER unifi
 
 WORKDIR /usr/lib/unifi/
 
